@@ -3,6 +3,7 @@
 .header-wrapper {
   background-color: $main-background;
   height: $header-height-desktop;
+  box-shadow: 0 1px #ffffff05;
 
   .logo-div {
     height: auto;
@@ -13,21 +14,24 @@
     }
   }
 
-  .login-div {
-    button {
-      background-color: $success-green;
+  .user-info {
+    .user-balance {
+      box-shadow: 0 1px #ffffff05, inset 0 1px 1px #0000001a;
+      width: 80px;
       height: 40px;
-      width: 120px;
-      color: white;
-      font-size: 12px;
       border-radius: 8px;
-      text-transform: uppercase;
-      font-weight: bold;
-      box-shadow: 0px 5px 5px rgb(0, 0, 0, 0.3);
-      transition: 0.2s background-color ease-in-out;
 
-      &:hover {
-        background-color: $dark-success-green;
+      span {
+        color: white;
+        font-weight: 600;
+      }
+    }
+
+    .user-avatar {
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border: 3px solid $grey;
       }
     }
   }

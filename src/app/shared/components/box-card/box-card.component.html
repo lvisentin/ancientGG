@@ -1,16 +1,23 @@
-<div class="box-card-wrapper flex flex-col">
-  <div class="box-icon">
-    <img [src]="boxData?.iconUrl" onError="this.src='http://placehold.it/150x150'" />
-  </div>
+<div class="box-card-wrapper w-full h-full flex flex-col items-stretch">
+  <header class="mb-4 w-full">
+    <img class="m-auto w-full h-full max-w-full" [src]="boxData?.iconUrl"
+      onError="this.src='http://placehold.it/180x180'" />
+  </header>
 
-  <div class="box-info">
-    <span class="box-span">BOX</span>
-    <div class="box-name">
+  <main class="box-info flex flex-col items-center mb-4">
+    <div class="box-name font-bold w-full text-center">
       <p class="truncate">{{boxData?.name}}</p>
     </div>
-    <div class="box-cost flex">
+
+    <div class="box-cost w-max flex items-center justify-center m-auto">
       <img src="assets/images/coin.svg" />
-      <p class="ml-1">{{boxData?.cost?.toLocaleString('en-US')}}</p>
+      <p class="ml-1 font-bold">{{boxData?.cost?.toLocaleString('en-US')}}</p>
     </div>
-  </div>
+  </main>
+
+  <footer>
+    <button class="open-case-button success-button">
+      open case
+    </button>
+  </footer>
 </div>

@@ -1,48 +1,52 @@
 @import '../../../../styles/variables.scss';
 
 .box-card-wrapper {
-  width: 150px;
-  height: 250px;
-  background: $box-card-background;
+  background-color: $box-card-background;
+  padding: 16px;
   border-radius: 8px;
+  transition: 0.2s all ease-in-out;
   cursor: pointer;
-  transition: 0.2s background-color ease-in-out;
 
   &:hover {
-    background: $box-card-hover;
+    background-color: $box-hover-background;
+
+    header {
+      img {
+        transform: rotate(5deg) scale(1.1);
+      }
+    }
   }
 
-  .box-icon {
-    height: 150px;
-    width: 150px;
-    padding: 8px;
+  header {
+    height: 180px;
 
     img {
-      width: 100%;
-      height: 100%;
-      max-height: 150px;
-      max-width: 150px;
+      max-height: 180px;
       border-radius: 8px;
+      transition: .2s all ease-in-out;
     }
   }
 
-  .box-info {
-    padding: 8px 16px;
-
-    .box-span {
-      font-size: 0.8rem;
-      color: $box-span-color;
-      font-weight: 500;
-    }
-
-    .box-name,
-    .box-cost {
-      color: #fff;
-      font-weight: 600;
-    }
-
+  main {
     .box-name {
-      height: 1.5em;
+      color: #fff;
+    }
+
+    .box-cost {
+      background: $dark-box-green;
+      color: $light-box-green;
+      font-size: 0.75rem;
+      width: fit-content;
+      padding: 4px 12px;
+      border-radius: 24px;
+      margin: 0.5rem 0 0;
+    }
+  }
+
+  footer {
+    button {
+      width: 100%;
+      box-shadow: 0 10px 27px 0 rgba(0, 255, 12, 0.1), inset 0 -3px 0 0 #00913c, inset 0 2px 0 0 #35d87b !important;
     }
   }
 }

@@ -3,7 +3,22 @@
     <img class="w-full" src="assets/images/logo.png">
   </div>
 
-  <div class="login-div">
-    <button class="login-button">Login</button>
-  </div>
+  <ng-container *ngIf="user; else notLoggedIn">
+    <div class="user-info flex">
+      <div class="user-balance flex items-center mr-4 px-4">
+        <img src="assets/images/coin.svg" class="mr-4"/>
+
+        <span>{{user.wallets[0].amount.toLocaleString('en-US')}}</span>
+      </div>
+      <div class="user-avatar">
+        <img [src]="user.avatar" class="avatar rounded-full">
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #notLoggedIn>
+    <div class="login-div">
+      <button class="login-button success-button" (click)="redirectToLogin()">Login</button>
+    </div>
+  </ng-template>
 </div>

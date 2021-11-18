@@ -15,7 +15,7 @@ export class BoxCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.boxData = this.box?.node;
-    console.log(this.boxData)
+    // console.log(this.boxData)
   }
 
 }

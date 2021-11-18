@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { User } from '../../models/user.models';
 
 @Component({
   selector: 'agg-header',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public user: User | null = null;
+
+  constructor(
+    private readonly authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
+    this.getUserInfo();
   }
 
+  private getUserInfo(): void {
+    this.user = this.authService.getCurrentUserInformation();
+    console.log(this.user)
+
+  }
+
+  public redirectToLogin(): void {
+    this.authService.login();
+  }
 }
