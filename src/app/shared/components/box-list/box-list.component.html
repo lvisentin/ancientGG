@@ -4,11 +4,10 @@
   </ng-container>
 
   <ng-template #loaded>
-    <div class="boxes-wrapper flex flex-wrap gap-4 justify-between">
+    <div class="boxes-wrapper flex flex-wrap gap-4">
       <ng-container *ngIf="boxes; else noBoxes">
         <agg-box-card *ngFor="let box of boxes" [box]="box"></agg-box-card>
       </ng-container>
-
     </div>
 
   </ng-template>

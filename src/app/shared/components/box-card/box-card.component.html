@@ -8,4 +8,15 @@
       <img src="http://placehold.it/150x150" />
     </ng-template>
   </div>
+
+  <div class="box-info">
+    <span class="box-span">BOX</span>
+    <div class="box-name">
+      <p class="truncate">{{boxData?.name}}</p>
+    </div>
+    <div class="box-cost flex">
+      <img src="assets/images/coin.svg"/>
+      <p class="ml-1">{{boxData?.cost?.toLocaleString('en-US')}}</p>
+    </div>
+  </div>
 </div>
