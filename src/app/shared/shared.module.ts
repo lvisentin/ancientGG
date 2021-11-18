@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemCardComponent } from './components/item-card/item-card.component';
+import { HeaderModule } from './components/header/header.module';
 
 
 
@@ -9,10 +10,12 @@ import { ItemCardComponent } from './components/item-card/item-card.component';
     ItemCardComponent,
   ],
   exports: [
-    ItemCardComponent
+    ItemCardComponent,
+    HeaderModule
   ],
   imports: [
     CommonModule,
+    HeaderModule,
   ]
 })
 export class SharedModule { }
