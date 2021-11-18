@@ -1,0 +1,19 @@
+@import '../../../../styles/variables.scss';
+
+.box-card-wrapper {
+  width: 150px;
+  height: 250px;
+  background: $box-card-background;
+  border-radius: 8px;
+
+  .box-icon {
+    height: 150px;
+    width: 150px;
+    padding: 8px;
+
+    img {
+      width: fit-content;
+      height: fit-content;
+    }
+  }
+}

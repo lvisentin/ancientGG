@@ -1,0 +1,11 @@
+<div class="box-card-wrapper flex flex-col">
+  <div class="box-icon">
+    <ng-container *ngIf="boxData?.iconUrl; else placeholderImage">
+      <img [src]="boxData?.iconUrl" />
+    </ng-container>
+
+    <ng-template #placeholderImage>
+      <img src="http://placehold.it/150x150" />
+    </ng-template>
+  </div>
+</div>
