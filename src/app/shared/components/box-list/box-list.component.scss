@@ -1,14 +1,23 @@
 @import '../../../../styles/variables.scss';
+@import '../../../../styles/animations.scss';
+
 
 .box-list-wrapper {
   background-color: $light-background;
-  width: 100%;
-  height: 100%;
   border-radius: 8px;
 
   .boxes-wrapper {
     overflow: auto;
     height: 100%;
     padding: 16px;
+  }
+
+  .loading-div {
+    .loading-image {
+      width: 150px;
+      height: 150px;
+      animation-name: loading;
+      animation-duration: 5s;
+    }
   }
 }

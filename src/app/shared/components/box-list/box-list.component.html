@@ -1,6 +1,8 @@
-<div class="box-list-wrapper">
+<div class="box-list-wrapper w-full h-full">
   <ng-container *ngIf="isLoading; else loaded">
-
+    <div class="loading-div w-full h-full flex items-center justify-center">
+      <img class="loading-image" src="assets/images/loading.svg" />
+    </div>
   </ng-container>
 
   <ng-template #loaded>

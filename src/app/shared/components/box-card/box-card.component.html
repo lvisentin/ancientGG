@@ -1,12 +1,6 @@
 <div class="box-card-wrapper flex flex-col">
   <div class="box-icon">
-    <ng-container *ngIf="boxData?.iconUrl; else placeholderImage">
-      <img [src]="boxData?.iconUrl" />
-    </ng-container>
-
-    <ng-template #placeholderImage>
-      <img src="http://placehold.it/150x150" />
-    </ng-template>
+    <img [src]="boxData?.iconUrl" onError="this.src='http://placehold.it/150x150'" />
   </div>
 
   <div class="box-info">
@@ -15,7 +9,7 @@
       <p class="truncate">{{boxData?.name}}</p>
     </div>
     <div class="box-cost flex">
-      <img src="assets/images/coin.svg"/>
+      <img src="assets/images/coin.svg" />
       <p class="ml-1">{{boxData?.cost?.toLocaleString('en-US')}}</p>
     </div>
   </div>
