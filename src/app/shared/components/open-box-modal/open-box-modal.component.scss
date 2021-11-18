@@ -1,0 +1,30 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/animations.scss';
+
+.modal-wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+
+  .modal-backdrop {
+    position: absolute;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    top: 0;
+  }
+
+  .modal {
+    width: 80%;
+    height: 200px;
+    background-color: $box-card-background;
+    position: absolute;
+    z-index: 3;
+  }
+}
