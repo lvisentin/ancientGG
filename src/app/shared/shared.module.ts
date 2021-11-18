@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemCardComponent } from './components/item-card/item-card.component';
 import { HeaderModule } from './components/header/header.module';
 import { ItemCardModule } from './components/item-card/item-card.module';
+import { ItemListModule } from './components/item-list/item-list.module';
 
 @NgModule({
   exports: [
     HeaderModule,
-    ItemCardModule
+    ItemCardModule,
+    ItemListModule,
   ],
   imports: [
     CommonModule,
     HeaderModule,
-    ItemCardModule
+    ItemCardModule,
+    ItemListModule,
   ]
 })
 export class SharedModule { }
