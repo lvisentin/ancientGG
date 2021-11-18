@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
+import { GET_USER } from './shared/queries/user-queries';
 
 @Component({
   selector: 'app-root',
@@ -8,21 +9,6 @@ import { Apollo, gql } from 'apollo-angular';
 })
 export class AppComponent {
   title = 'ancientGG';
-
-  private GET_USER = gql`
-    query currentUser {
-      currentUser {
-      id
-      name
-      avatar
-        wallets {
-          id
-          amount
-          currency
-        }
-      }
-    }
-  `;
 
   constructor(
     private readonly apollo: Apollo,
@@ -34,7 +20,7 @@ export class AppComponent {
   }
 
   private getCurrentUser() {
-    this.apollo.watchQuery({ query: this.GET_USER })
+    this.apollo.watchQuery({ query: GET_USER })
       .valueChanges
       .subscribe((currentUserResponse: any) => {
         if (currentUserResponse.data) {

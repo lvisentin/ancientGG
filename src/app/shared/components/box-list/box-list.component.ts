@@ -3,6 +3,7 @@ import { Apollo, gql } from 'apollo-angular';
 import { Subject } from 'rxjs';
 import { Box, BoxResponse } from '../../models/boxes.model';
 import { takeUntil } from 'rxjs/operators';
+import { GET_BOXES } from '../../queries/boxes-queries';
 
 @Component({
   selector: 'agg-box-list',
@@ -15,19 +16,6 @@ export class BoxListComponent implements OnInit, OnDestroy {
   public isLoading: boolean = false;
 
   private destroy$: Subject<boolean> = new Subject();
-  private GET_BOXES = gql`
-    query getboxes {
-      boxes(free: false, purchasable: true, openable: true) {
-        edges {
-        node {
-          id
-          name
-          iconUrl
-          cost
-        }
-        }
-      }
-    }`;
 
 
   constructor(private readonly apollo: Apollo) { }
@@ -45,7 +33,7 @@ export class BoxListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     this.apollo
-      .watchQuery({ query: this.GET_BOXES })
+      .watchQuery({ query: GET_BOXES })
       .valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ data }: { data: any }) => {

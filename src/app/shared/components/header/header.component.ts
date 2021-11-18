@@ -21,8 +21,6 @@ export class HeaderComponent implements OnInit {
 
   private getUserInfo(): void {
     this.user = this.authService.getCurrentUserInformation();
-    console.log(this.user)
-
   }
 
   public redirectToLogin(): void {
