@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { QueryRef } from 'apollo-angular';
+import { Component, Input, OnInit } from '@angular/core';
+import { Apollo, QueryRef } from 'apollo-angular';
+import { GET_USER } from '../../queries/user-queries';
 import { ON_UPDATE_WALLET } from '../../queries/wallet-queries';
 
 @Component({
@@ -9,32 +10,36 @@ import { ON_UPDATE_WALLET } from '../../queries/wallet-queries';
 })
 export class WalletBalanceComponent implements OnInit {
 
-  private walletQuery: QueryRef<any> | null = null;
+  @Input() balance: number;
+  private walletQuery: QueryRef<any>;
 
   constructor(
+    private readonly apollo: Apollo
   ) { }
 
   ngOnInit(): void {
+    this.walletQuery = this.apollo.watchQuery({ query: GET_USER })
     this.watchWalletUpdates();
   }
 
+  private refreshUserWallet() {
+
+  }
+
   private watchWalletUpdates(): void {
+    console.log('wallet balance watch updates')
     this.walletQuery?.subscribeToMore(
       {
         document: ON_UPDATE_WALLET,
         updateQuery: (prev, { subscriptionData }) => {
+          const walletChange = subscriptionData.data;
           if (!subscriptionData.data) {
             return prev;
           }
 
-          const newBalance = subscriptionData.data;
-          console.log(newBalance)
-          // console.log(prev, subscriptionData)
+          this.refreshUserWallet();
         }
       }
     )
-    //   .watchQuery({ query: this.ON_UPDATE_WALLET })
-    //   .valueChanges
-    //   .subscribe((response) => console.log(response));
   }
 }

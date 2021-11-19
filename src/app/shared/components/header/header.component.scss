@@ -15,6 +15,16 @@
   }
 
   .user-info {
+    .user-balance {
+      box-shadow: 0 1px #ffffff05, inset 0 1px 1px #0000001a;
+      height: 40px;
+      border-radius: 8px;
+
+      span {
+        color: white;
+      }
+    }
+
     .user-avatar {
       .avatar {
         width: 40px;

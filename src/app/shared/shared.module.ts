@@ -6,6 +6,8 @@ import { BoxListModule } from './components/box-list/box-list.module';
 import { WalletBalanceModule } from './components/wallet-balance/wallet-balance.module';
 import { OpenBoxModalComponent } from './components/open-box-modal/open-box-modal.component';
 import { OpenBoxModalModule } from './components/open-box-modal/open-box-modal.module';
+import { ItemCardComponent } from './components/item-card/item-card.component';
+import { ItemCardModule } from './components/item-card/item-card.module';
 
 @NgModule({
   exports: [
@@ -14,6 +16,7 @@ import { OpenBoxModalModule } from './components/open-box-modal/open-box-modal.m
     BoxListModule,
     WalletBalanceModule,
     OpenBoxModalModule,
+    ItemCardModule,
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,7 @@ import { OpenBoxModalModule } from './components/open-box-modal/open-box-modal.m
     BoxListModule,
     WalletBalanceModule,
     OpenBoxModalModule,
+    ItemCardModule,
   ],
 })
 export class SharedModule { }

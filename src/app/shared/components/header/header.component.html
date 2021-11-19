@@ -5,7 +5,14 @@
 
   <ng-container *ngIf="user; else notLoggedIn">
     <div class="user-info flex">
-      <agg-wallet-balance></agg-wallet-balance>
+      <!-- <agg-wallet-balance [balance]="user.wallets[0].amount"></agg-wallet-balance> -->
+      <div class="user-balance w-max flex items-center mr-4 px-4">
+        <img src="assets/images/coin.svg" class="mr-4" />
+
+        <span class="font-bold">{{user.wallets[0].amount.toLocaleString('en-US', {minimumFractionDigits: 2})}}</span>
+        <span class="font-bold"></span>
+      </div>
+
 
       <div class="user-avatar">
         <img [src]="user.avatar" class="avatar rounded-full">

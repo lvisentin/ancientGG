@@ -1,0 +1,52 @@
+@import '../../../../styles/variables.scss';
+
+.item-card-wrapper {
+  background-color: $box-card-background;
+  padding: 16px;
+  border-radius: 8px;
+  transition: 0.2s all ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $box-hover-background;
+
+    header {
+      img {
+        transform: rotate(5deg) scale(1.1);
+      }
+    }
+  }
+
+  header {
+    height: 180px;
+
+    img {
+      max-height: 180px;
+      border-radius: 8px;
+      transition: .2s all ease-in-out;
+    }
+  }
+
+  main {
+    .item-name {
+      color: #fff;
+    }
+
+    .item-cost {
+      background: $dark-box-green;
+      color: $light-box-green;
+      font-size: 0.75rem;
+      width: fit-content;
+      padding: 4px 12px;
+      border-radius: 24px;
+      margin: 0.5rem 0 0;
+    }
+  }
+
+  footer {
+    button {
+      width: 100%;
+      box-shadow: 0 10px 27px 0 rgba(0, 255, 12, 0.1), inset 0 -3px 0 0 #00913c, inset 0 2px 0 0 #35d87b !important;
+    }
+  }
+}

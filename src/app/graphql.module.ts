@@ -8,10 +8,10 @@ import { getMainDefinition } from '@apollo/client/utilities';
 const uri = '://api-staging.csgoroll.com/graphql';
 
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
-  const http = httpLink.create({ uri: `https${uri}`, withCredentials: true});
+  const http = httpLink.create({ uri: `https${uri}`, withCredentials: true });
 
   const ws = new WebSocketLink({
-    uri: `wss${uri}`,
+    uri: `ws${uri}`,
     options: {
       reconnect: true,
     }

@@ -1,5 +1,40 @@
-<div class="modal-wrapper">
-  <div class="modal-backdrop"></div>
+<div class="modal-wrapper absolute flex flex-col items-center justify-center top-0 w-full h-full"
+  [ngClass]="isOpened ? 'show' : 'hidden'">
+  <div class="modal-backdrop absolute w-full h-full top-0" (click)="close()"></div>
 
-  <div class="modal"></div>
+  <div class="modal absolute">
+    <header class="absolute top-0 right-0 text-right p-4">
+      <button class="font-bold cursor-pointer" (click)="close()">X</button>
+    </header>
+
+    <main class="modal-content flex w-full h-full">
+      <ng-container *ngIf="isLoading; else loaded">
+        <div class="loading-div flex h-full w-full items-center justify-center">
+          <img class="loading-image" src="assets/images/loading.svg" />
+        </div>
+      </ng-container>
+
+      <ng-template #loaded>
+        <div class="box-info">
+          <ng-container *ngIf="boxData">
+            <agg-box-card (customClick)="openCase()" [box]="boxData"></agg-box-card>
+          </ng-container>
+        </div>
+
+
+
+        <div class="box-opening-result" *ngIf="true">
+          <agg-item-card [itemVariant]="mockVariant"></agg-item-card>
+          <!-- <div class="box-opening" *ngFor="let opening of boxOpenings">
+            <div class="opening-img">
+              <img [src]="opening?.itemVariant?.iconUrl" />
+            </div> -->
+
+
+          <!-- </div> -->
+
+        </div>
+      </ng-template>
+    </main>
+  </div>
 </div>

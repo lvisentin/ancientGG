@@ -1,0 +1,17 @@
+<div class="item-card-wrapper w-full h-full flex flex-col items-stretch">
+  <header class="mb-4 w-full">
+    <img class="m-auto w-full h-full max-w-full" [src]="itemVariant?.iconUrl"
+      onError="this.src='http://placehold.it/180x180'" />
+  </header>
+
+  <main class="item-info flex flex-col items-center mb-4">
+    <div class="item-name font-bold w-full text-center">
+      <p class="truncate">{{itemVariant?.name}}</p>
+    </div>
+
+    <div class="item-cost w-max flex items-center justify-center m-auto">
+      <img src="assets/images/coin.svg" />
+      <p class="ml-1 font-bold">{{itemVariant?.value?.toLocaleString('en-US')}}</p>
+    </div>
+  </main>
+</div>
