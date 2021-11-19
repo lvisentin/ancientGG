@@ -35,17 +35,30 @@
     }
 
     .modal-content {
+      min-height: inherit;
+
       .loading-div {
+        min-height: inherit;
+
         .loading-image {
           width: 150px;
           height: 150px;
           animation-name: loading;
-          animation-duration: 5s;
+          animation-duration: 10s;
         }
       }
 
       .box-info {
         width: 245px;
+      }
+
+      .box-opening-result {
+        background: $main-background;
+        border-radius: 16px;
+      }
+
+      .openings-title {
+        color: white;
       }
     }
   }

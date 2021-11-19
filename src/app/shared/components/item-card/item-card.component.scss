@@ -1,15 +1,14 @@
 @import '../../../../styles/variables.scss';
 
 .item-card-wrapper {
-  background-color: $box-card-background;
+  // background-color: $box-card-background;
   padding: 16px;
   border-radius: 8px;
   transition: 0.2s all ease-in-out;
   cursor: pointer;
+  min-width: 220px;
 
   &:hover {
-    background-color: $box-hover-background;
-
     header {
       img {
         transform: rotate(5deg) scale(1.1);
