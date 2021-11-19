@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil, takeWhile } from 'rxjs/operators';
@@ -18,16 +18,8 @@ export class OpenBoxModalComponent implements OnInit {
   public dialogData: OpenBoxModalData;
   public boxData: Box | null = null;
   public isLoading: boolean = false;
+  public isMobile: boolean = window.innerWidth > 569 ? false : true;
   public boxOpenings: BoxOpening[] = [];
-
-  public mockVariant: ItemVariant = {
-    "id": "SXRlbVZhcmlhbnQ6Mjg2Mg",
-    "name": "Detour",
-    "iconUrl": "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopamie19f2-r3Yi5FvISJmYGZnPLmDLfYkWNF18lwmO7Eu9-k0ADh_xBkZW71cNWTJgE8MAzRqFfrwurs0JC6vcnAwXFivCQnsy3D30vgKqufbgc",
-    "value": 5.58,
-    "__typename": "ItemVariant"
-  }
-
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -35,6 +27,11 @@ export class OpenBoxModalComponent implements OnInit {
     private readonly apollo: Apollo,
     private readonly authService: AuthService
   ) { }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isMobile = window.innerWidth > 569 ? false : true;
+  }
 
   ngOnInit(): void {
     this.openBoxModalService
@@ -52,10 +49,16 @@ export class OpenBoxModalComponent implements OnInit {
   public close(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
     this.boxData = null;
+    this.boxOpenings = [];
     this.openBoxModalService.close();
   }
 
+  public tryAgain(): void {
+    this.boxOpenings = [];
+  }
+
   public openCase($event: { quantity: number }): void {
+    this.isLoading = true;
     const user = this.authService.getCurrentUserInformation();
     if (!user) {
       return
@@ -71,6 +74,7 @@ export class OpenBoxModalComponent implements OnInit {
       }
     }).subscribe(({ data }: any) => {
       this.boxOpenings = data.openBox.boxOpenings;
+      this.isLoading = false;
       console.log(this.boxOpenings)
     })
   }

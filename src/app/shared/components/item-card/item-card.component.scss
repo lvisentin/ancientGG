@@ -1,12 +1,11 @@
 @import '../../../../styles/variables.scss';
 
 .item-card-wrapper {
-  // background-color: $box-card-background;
   padding: 16px;
   border-radius: 8px;
   transition: 0.2s all ease-in-out;
   cursor: pointer;
-  min-width: 220px;
+  min-width: 272px;
 
   &:hover {
     header {

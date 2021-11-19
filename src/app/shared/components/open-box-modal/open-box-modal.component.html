@@ -7,7 +7,7 @@
       <button class="font-bold cursor-pointer" (click)="close()">X</button>
     </header>
 
-    <main class="modal-content flex w-full h-full p-4">
+    <main class="modal-content flex w-full h-full p-4 justify-center">
       <ng-container *ngIf="isLoading; else loaded">
         <div class="loading-div flex h-full w-full items-center justify-center">
           <img class="loading-image" src="assets/images/loading.svg" />
@@ -15,16 +15,29 @@
       </ng-container>
 
       <ng-template #loaded>
-        <div class="box-info">
-          <ng-container *ngIf="boxData">
-            <agg-box-card (customClick)="openCase($event)" [box]="boxData" variant='open'></agg-box-card>
+        <ng-container *ngIf="boxData">
+          <ng-container *ngIf="isMobile; else desktopBoxData">
+            <ng-container *ngIf="!(boxOpenings.length > 0)">
+              <agg-box-card (customClick)="openCase($event)" [box]="boxData" variant='open'></agg-box-card>
+            </ng-container>
           </ng-container>
-        </div>
+
+          <ng-template #desktopBoxData>
+            <div class="box-info w-full">
+              <agg-box-card (customClick)="openCase($event)" [box]="boxData" variant='open'></agg-box-card>
+            </div>
+          </ng-template>
+
+        </ng-container>
 
         <div class="flex flex-col overflow-auto w-full" *ngIf="boxOpenings.length > 0">
           <p class="openings-title text-center font-bold mb-4">Your openings results:</p>
-          <div class="box-opening-result overflow-auto w-5/6 h-full flex items-center px-4x m-auto gap-4">
+          <div class="box-opening-result overflow-auto w-full sm:w-5/6 h-full flex items-center px-4x m-auto gap-4">
             <agg-item-card *ngFor="let opening of boxOpenings" [itemVariant]="opening.itemVariant"></agg-item-card>
+          </div>
+
+          <div class="try-again block sm:hidden w-full">
+            <button class="success-button try-again w-full mt-4" (click)="tryAgain()">TRY AGAIN</button>
           </div>
         </div>
       </ng-template>
