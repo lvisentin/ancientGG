@@ -17,7 +17,7 @@
       <ng-template #loaded>
         <div class="box-info">
           <ng-container *ngIf="boxData">
-            <agg-box-card (customClick)="openCase()" [box]="boxData"></agg-box-card>
+            <agg-box-card (customClick)="openCase($event)" [box]="boxData" variant='open'></agg-box-card>
           </ng-container>
         </div>
 

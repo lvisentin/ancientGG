@@ -10,7 +10,10 @@ import { Box, BoxResponse } from '../../models/boxes.model';
 export class BoxCardComponent implements OnInit {
 
   @Input() box: Box;
+  @Input() variant: 'view' | 'open' = 'view';
   @Output() customClick = new EventEmitter();
+  public openingQt = [1, 2, 3, 4, 5];
+  public selectedQt = 1;
   public boxData: Box;
 
   constructor(
@@ -21,9 +24,13 @@ export class BoxCardComponent implements OnInit {
     this.boxData = this.box;
   }
 
+  public selectQt(qt: number) {
+    this.selectedQt = qt;
+  }
+
   public handleOpenCaseClick() {
     if (this.customClick.observers.length > 0) {
-      this.customClick.emit();
+      this.customClick.emit({ quantity: this.selectedQt });
     } else {
       this.openModal();
     }

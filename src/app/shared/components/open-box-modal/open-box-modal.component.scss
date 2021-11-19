@@ -22,7 +22,8 @@
 
   .modal {
     max-width: 95vw;
-    height: 350px;
+    min-height: 350px;
+    height: fit-content;
     border-radius: 8px;
     background-color: $box-card-background;
     z-index: 3;

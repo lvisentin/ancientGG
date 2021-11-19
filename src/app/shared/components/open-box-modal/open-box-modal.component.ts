@@ -55,7 +55,7 @@ export class OpenBoxModalComponent implements OnInit {
     this.openBoxModalService.close();
   }
 
-  public openCase(): void {
+  public openCase($event: { quantity: number }): void {
     const user = this.authService.getCurrentUserInformation();
     if (!user) {
       return
@@ -66,7 +66,7 @@ export class OpenBoxModalComponent implements OnInit {
       variables: {
         input: {
           boxId: this.boxData?.id,
-          amount: 1
+          amount: $event.quantity
         }
       }
     }).subscribe(({ data }: any) => {
