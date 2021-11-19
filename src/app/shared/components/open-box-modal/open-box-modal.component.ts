@@ -75,7 +75,6 @@ export class OpenBoxModalComponent implements OnInit {
     }).subscribe(({ data }: any) => {
       this.boxOpenings = data.openBox.boxOpenings;
       this.isLoading = false;
-      console.log(this.boxOpenings)
     })
   }
 
