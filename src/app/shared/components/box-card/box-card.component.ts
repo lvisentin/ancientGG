@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
-import { Box, BoxResponse } from '../../models/boxes.model';
+import { Box } from '../../models/boxes.model';
+import { MatDialog } from '@angular/material/dialog';
+import { OpenBoxModalComponent } from '../open-box-modal/open-box-modal.component';
 
 @Component({
   selector: 'agg-box-card',
@@ -18,7 +19,7 @@ export class BoxCardComponent implements OnInit {
   public boxData: Box;
 
   constructor(
-    private readonly openBoxModalService: OpenBoxModalService,
+    private readonly matDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +40,12 @@ export class BoxCardComponent implements OnInit {
   }
 
   public openModal(): void {
-    this.openBoxModalService.open({ data: { boxId: this.boxData?.id } });
+    this.matDialog.open(OpenBoxModalComponent, {
+      panelClass: 'open-box-modal-panel',
+      data: {
+        boxId: this.boxData?.id
+      }
+    })
   }
 
 }

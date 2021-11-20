@@ -2,6 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import './styles/variables.scss';
+@import './styles/overridematerial.scss';
 
 * {
   margin: 0;
@@ -34,3 +35,6 @@ body {
     background-color: $dark-success-green;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

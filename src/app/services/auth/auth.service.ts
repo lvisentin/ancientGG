@@ -1,12 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
-import { Subject, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { User } from 'src/app/shared/models/user.models';
 import { GET_USER } from 'src/app/shared/queries/user-queries';
-
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/shared/models/user.models';
 
 @Injectable({
   providedIn: 'root'

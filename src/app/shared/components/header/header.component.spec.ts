@@ -1,14 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApolloTestingController, ApolloTestingModule } from 'apollo-angular/testing';
-import { Observable, of } from 'rxjs';
-import { GraphQLModule } from 'src/app/graphql.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ON_UPDATE_WALLET } from '../../queries/wallet-queries';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
-import { ApolloQueryResult } from '@apollo/client/core';
-import { User } from '../../models/user.models';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -45,7 +40,7 @@ describe('HeaderComponent', () => {
   });
 
   afterEach(() => {
-    controller.verify
+    controller.verify();
   });
 
   it('should create', () => {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { OpenBoxModalData } from 'src/app/shared/models/open-box-modal.models';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

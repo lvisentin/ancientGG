@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
-import { Subject } from 'rxjs';
-import { Box, BoxResponse } from '../../models/boxes.model';
-import { takeUntil } from 'rxjs/operators';
+import { Apollo } from 'apollo-angular';
+import { BoxResponse } from '../../models/boxes.model';
 import { GET_BOXES } from '../../queries/boxes-queries';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'agg-box-list',

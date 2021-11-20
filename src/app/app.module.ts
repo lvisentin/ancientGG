@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeModule } from './pages/home/home.module';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 import { GraphQLModule } from './graphql.module';
-import { HttpClientModule } from '@angular/common/http';
 import { HeaderModule } from './shared/components/header/header.module';
+import { HomeModule } from './pages/home/home.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { OpenBoxModalModule } from './shared/components/open-box-modal/open-box-modal.module';
 
 @NgModule({
@@ -21,6 +21,7 @@ import { OpenBoxModalModule } from './shared/components/open-box-modal/open-box-
     HttpClientModule,
     HeaderModule,
     OpenBoxModalModule,
+    BrowserAnimationsModule,
   ],
   bootstrap: [AppComponent]
 })

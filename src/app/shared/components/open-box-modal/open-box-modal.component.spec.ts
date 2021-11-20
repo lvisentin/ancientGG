@@ -1,23 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GraphQLModule } from 'src/app/graphql.module';
-
-import { OpenBoxModalComponent } from './open-box-modal.component';
 import {
-  ApolloTestingModule,
   ApolloTestingController,
+  ApolloTestingModule,
 } from 'apollo-angular/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GET_BOX_BY_ID, OPEN_BOX_MUTATION } from '../../queries/boxes-queries';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs';
+import { OpenBoxModalComponent } from './open-box-modal.component';
+import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
 
 describe('OpenBoxModalComponent', () => {
   let component: OpenBoxModalComponent;
   let fixture: ComponentFixture<OpenBoxModalComponent>;
   let controller: ApolloTestingController;
   let openBoxModalService: OpenBoxModalService;
-  let authService: AuthService;
 
   const mockModalData = {
     isOpened: true,
@@ -41,7 +37,6 @@ describe('OpenBoxModalComponent', () => {
     component.isOpened = true;
 
     openBoxModalService = TestBed.inject(OpenBoxModalService);
-    authService = TestBed.inject(AuthService);
 
     controller = TestBed.inject(ApolloTestingController);
 

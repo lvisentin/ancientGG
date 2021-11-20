@@ -1,33 +1,34 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { Subject, Subscription } from 'rxjs';
-import { finalize, takeUntil, takeWhile } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
-import { Box, BoxOpening, BoxOpeningResponse, ItemVariant } from '../../models/boxes.model';
-import { OpenBoxModalData } from '../../models/open-box-modal.models';
+import { Box, BoxOpening } from '../../models/boxes.model';
+import { Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { GET_BOX_BY_ID, OPEN_BOX_MUTATION } from '../../queries/boxes-queries';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { finalize, takeUntil } from 'rxjs/operators';
+import { Apollo } from 'apollo-angular';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { OpenBoxModalData } from '../../models/open-box-modal.models';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'agg-open-box-modal',
   templateUrl: './open-box-modal.component.html',
   styleUrls: ['./open-box-modal.component.scss']
 })
-export class OpenBoxModalComponent implements OnInit {
+export class OpenBoxModalComponent implements OnInit, OnDestroy {
   public isOpened: boolean = false;
-  public dialogData: OpenBoxModalData;
   public boxData: Box | null = null;
   public isLoading: boolean = false;
   public isMobile: boolean = window.innerWidth > 569 ? false : true;
   public boxOpenings: BoxOpening[] = [];
-
-  private subscriptions: Subscription[] = [];
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private readonly openBoxModalService: OpenBoxModalService,
+    @Inject(MAT_DIALOG_DATA) public dialogData: OpenBoxModalData,
     private readonly apollo: Apollo,
     private readonly authService: AuthService,
+    private readonly matSnackbar: MatSnackBar,
+    private readonly matDialogRef: MatDialogRef<OpenBoxModalComponent>
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -36,27 +37,22 @@ export class OpenBoxModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.openBoxModalService
-      .modalData
-      .subscribe(({ data, isOpened }) => {
-        this.isOpened = isOpened;
-        this.dialogData = data;
-
-        if (isOpened) {
-          this.getBoxData();
-        }
-      })
+    if (this.dialogData.boxId) {
+      this.getBoxData();
+    }
   }
 
-  public close(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-    this.boxData = null;
-    this.boxOpenings = [];
-    this.openBoxModalService.close();
+  ngOnDestroy(): void {
+    this.destroy$.unsubscribe();
+    this.destroy$.next(false);
   }
 
   public tryAgain(): void {
     this.boxOpenings = [];
+  }
+
+  public close(): void {
+    this.matDialogRef.close();
   }
 
   public openCase($event: { quantity: number }): void {
@@ -80,26 +76,28 @@ export class OpenBoxModalComponent implements OnInit {
         this.boxOpenings = data.openBox.boxOpenings;
         this.isLoading = false;
       }, (err: HttpErrorResponse) => {
-
+        console.log('err', err.message)
+        this.matSnackbar.open(err.message, 'OK', {
+          duration: 3000,
+        });
       })
   }
 
   public getBoxData(): void {
     this.isLoading = true;
-    this.subscriptions.push(
-      this.apollo.watchQuery(
-        {
-          query: GET_BOX_BY_ID,
-          variables: {
-            id: this.dialogData.boxId,
-          }
+    this.apollo.watchQuery(
+      {
+        query: GET_BOX_BY_ID,
+        variables: {
+          id: this.dialogData.boxId,
         }
-      )
-        .valueChanges
-        .subscribe(({ data }: { data: any }) => {
-          this.boxData = data.box;
-          this.isLoading = false;
-        })
+      }
     )
+      .valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ data }: { data: any }) => {
+        this.boxData = data.box;
+        this.isLoading = false;
+      })
   }
 }

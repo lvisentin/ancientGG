@@ -6,7 +6,7 @@
   </ng-container>
 
   <ng-template #loaded>
-    <div class="boxes-wrapper grid">
+    <div class="boxes-wrapper grid overflow-auto h-full">
       <ng-container *ngIf="boxes; else noBoxes">
         <agg-box-card *ngFor="let box of boxes" [box]="box.node"></agg-box-card>
       </ng-container>

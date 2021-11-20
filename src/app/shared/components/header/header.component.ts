@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { User } from '../../models/user.models';
 import { GET_USER } from '../../queries/user-queries';
 import { ON_UPDATE_WALLET } from '../../queries/wallet-queries';
+import { User } from '../../models/user.models';
 
 @Component({
   selector: 'agg-header',

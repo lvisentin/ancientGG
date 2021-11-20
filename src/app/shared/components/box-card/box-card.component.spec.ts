@@ -1,11 +1,7 @@
-import { EventEmitter } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
-import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
-import Observable from 'zen-observable';
 import { Box } from '../../models/boxes.model';
-
 import { BoxCardComponent } from './box-card.component';
+import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
 
 describe('BoxCardComponent', () => {
   let component: BoxCardComponent;

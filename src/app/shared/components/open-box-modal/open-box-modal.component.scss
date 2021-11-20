@@ -1,86 +1,63 @@
 @import '../../../../styles/variables.scss';
 @import '../../../../styles/animations.scss';
 
-.modal-wrapper {
-  &.hidden {
-    visibility: hidden;
-    opacity: 0;
-  }
-
-  &.show {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  background: transparent;
-  transition: 0.2s all ease-in-out;
-
-  .modal-backdrop {
-    z-index: 2;
-    background: rgba(0, 0, 0, 0.5);
-  }
-
-  .modal {
-    max-width: 95vw;
-    min-height: 350px;
-    height: fit-content;
-    border-radius: 8px;
-    background-color: $box-card-background;
-    z-index: 3;
-
-    header {
-      button {
-        color: white;
-      }
-    }
-
-    .modal-content {
-      min-height: inherit;
-
-      .loading-div {
-        min-height: inherit;
-
-        .loading-image {
-          width: 150px;
-          height: 150px;
-          animation-name: loading;
-          animation-duration: 10s;
-        }
+::ng-deep {
+  .open-box-modal-panel {
+    mat-dialog-container {
+      @media only screen and (max-width: 674px) {
+        width: 95vw;
+        padding: 0;
       }
 
-      .box-info {
-        width: 245px;
+      @media only screen and (min-width: 768px) {
+        width: 1081px;
       }
 
-      .box-opening-result {
-        background: $main-background;
-        border-radius: 16px;
-      }
+      min-height: 350px;
+      height: fit-content;
+      border-radius: 8px;
+      background-color: $box-card-background;
+      z-index: 3;
 
-      .openings-title {
-        color: white;
-      }
-
-      .try-again {
+      header {
         button {
-          width: 100% !important;
+          color: white;
+        }
+      }
+
+      .modal-content {
+        min-height: 350px;
+
+        .loading-div {
+          min-height: 350px;
+
+          .loading-image {
+            width: 150px;
+            height: 150px;
+            animation-name: loading;
+            animation-duration: 10s;
+          }
+        }
+
+        .box-info {
+          max-width: 245px;
+        }
+
+        .box-opening-result {
+          background: $main-background;
+          border-radius: 16px;
+        }
+
+        .openings-title {
+          color: white;
+        }
+
+        .try-again {
+          button {
+            width: 100% !important;
+          }
         }
       }
     }
   }
 }
-
-@media only screen and (max-width: 768px) {
-  .modal {
-    width: 100%;
-  }
-}
-
-
-
-@media only screen and (min-width: 768px) {
-  .modal {
-    width: 1081px;
-  }
-}
-
