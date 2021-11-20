@@ -2,13 +2,13 @@ import { Box, BoxOpening } from '../../models/boxes.model';
 import { Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { GET_BOX_BY_ID, OPEN_BOX_MUTATION } from '../../queries/boxes-queries';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { finalize, takeUntil } from 'rxjs/operators';
 import { Apollo } from 'apollo-angular';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OpenBoxModalData } from '../../models/open-box-modal.models';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'agg-open-box-modal',
@@ -16,6 +16,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./open-box-modal.component.scss']
 })
 export class OpenBoxModalComponent implements OnInit, OnDestroy {
+
   public isOpened: boolean = false;
   public boxData: Box | null = null;
   public isLoading: boolean = false;
@@ -71,12 +72,12 @@ export class OpenBoxModalComponent implements OnInit, OnDestroy {
         }
       }
     })
-      .pipe(finalize(() => this.isLoading = false))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(({ data }: any) => {
         this.boxOpenings = data.openBox.boxOpenings;
         this.isLoading = false;
       }, (err: HttpErrorResponse) => {
-        console.log('err', err.message)
+        this.isLoading = false;
         this.matSnackbar.open(err.message, 'OK', {
           duration: 3000,
         });
@@ -84,6 +85,9 @@ export class OpenBoxModalComponent implements OnInit, OnDestroy {
   }
 
   public getBoxData(): void {
+    console.log(this.dialogData.boxId)
+    if (!this.dialogData.boxId) { return };
+
     this.isLoading = true;
     this.apollo.watchQuery(
       {
@@ -98,6 +102,8 @@ export class OpenBoxModalComponent implements OnInit, OnDestroy {
       .subscribe(({ data }: { data: any }) => {
         this.boxData = data.box;
         this.isLoading = false;
+        console.log(this.boxData)
       })
+
   }
 }

@@ -29,7 +29,7 @@ export class BoxListComponent implements OnInit, OnDestroy {
     this.destroy$.next(false);
   }
 
-  private getBoxes(): void {
+  public getBoxes(): void {
     this.isLoading = true;
 
     this.apollo

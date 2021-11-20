@@ -24,6 +24,7 @@
       "rules": {
         "unused-imports/no-unused-imports-ts": "error",
         "no-multi-spaces": "error",
+        "semi-style": "error",
         "no-unused-expressions": "error",
         "no-unused-vars": "error",
         "sort-imports": "error",

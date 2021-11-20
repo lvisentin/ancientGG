@@ -20,14 +20,4 @@ export class AuthService {
 
     return getCurrenUserObservable;
   }
-
-  public refreshCurrentUserInformation(): void {
-    this.apollo.watchQuery({ query: GET_USER })
-      .valueChanges
-      .subscribe((currentUserResponse) => {
-        if (currentUserResponse.data) {
-          localStorage.setItem('user', JSON.stringify(currentUserResponse.data));
-        }
-      })
-  }
 }

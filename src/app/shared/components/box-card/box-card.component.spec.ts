@@ -1,17 +1,33 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Box } from '../../models/boxes.model';
 import { BoxCardComponent } from './box-card.component';
-import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('BoxCardComponent', () => {
   let component: BoxCardComponent;
   let fixture: ComponentFixture<BoxCardComponent>;
-  let openBoxModalService: OpenBoxModalService;
+  let matDialog: MatDialog;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [BoxCardComponent],
-      providers: [OpenBoxModalService]
+      imports: [
+        MatDialogModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule
+      ],
+      providers: [
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {}
+        },
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        },
+      ]
     })
       .compileComponents();
   });
@@ -20,7 +36,7 @@ describe('BoxCardComponent', () => {
     fixture = TestBed.createComponent(BoxCardComponent);
     component = fixture.componentInstance;
 
-    openBoxModalService = TestBed.inject(OpenBoxModalService);
+    matDialog = TestBed.inject(MatDialog);
 
     fixture.detectChanges();
   });
@@ -57,13 +73,10 @@ describe('BoxCardComponent', () => {
     }
 
     component.boxData = boxData;
-
-    spyOn(openBoxModalService, 'open');
-
+    spyOn(matDialog, 'open');
     component.openModal();
-
     expect(component.boxData.id).toEqual(boxData.id);
-    expect(openBoxModalService.open).toHaveBeenCalledWith({ data: { boxId: boxData.id } });
+    expect(matDialog.open).toHaveBeenCalled();
   })
 
 });

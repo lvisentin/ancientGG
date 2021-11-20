@@ -3,28 +3,45 @@ import {
   ApolloTestingModule,
 } from 'apollo-angular/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GET_BOX_BY_ID, OPEN_BOX_MUTATION } from '../../queries/boxes-queries';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { OPEN_BOX_MUTATION } from '../../queries/boxes-queries';
 import { OpenBoxModalComponent } from './open-box-modal.component';
-import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
 
 describe('OpenBoxModalComponent', () => {
   let component: OpenBoxModalComponent;
   let fixture: ComponentFixture<OpenBoxModalComponent>;
   let controller: ApolloTestingController;
-  let openBoxModalService: OpenBoxModalService;
 
   const mockModalData = {
-    isOpened: true,
-    data: { boxId: '0' }
+    boxId: 'mockId'
   }
+
+  const dialogMock = {
+    close: () => { }
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [OpenBoxModalComponent],
-      imports: [ApolloTestingModule, HttpClientTestingModule],
-      providers: [OpenBoxModalService, AuthService]
+      imports: [
+        ApolloTestingModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        MatDialogModule
+      ],
+      providers: [AuthService,
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {}
+        },
+        {
+          provide: MatDialogRef,
+          useValue: dialogMock
+        },
+      ]
     })
       .compileComponents();
   });
@@ -33,10 +50,7 @@ describe('OpenBoxModalComponent', () => {
     fixture = TestBed.createComponent(OpenBoxModalComponent);
 
     component = fixture.componentInstance;
-    component.dialogData = { boxId: 'test' };
     component.isOpened = true;
-
-    openBoxModalService = TestBed.inject(OpenBoxModalService);
 
     controller = TestBed.inject(ApolloTestingController);
 
@@ -52,12 +66,11 @@ describe('OpenBoxModalComponent', () => {
   });
 
   it('should get box info', () => {
-    openBoxModalService.modalData.subscribe((res) => expect(res).toEqual(mockModalData));
-
+    component.dialogData = mockModalData;
     component.getBoxData();
     expect(component.isLoading).toBeTrue();
 
-    const op = controller.expectOne(GET_BOX_BY_ID);
+    const op = controller.expectOne('getBoxById');
 
     op.flush({
       data: {
@@ -70,15 +83,15 @@ describe('OpenBoxModalComponent', () => {
           marketId: 'mockmarketId',
         }
       }
-    })
+    });
 
     controller.verify();
   });
 
   it('should open the case', () => {
-    component.openCase({ quantity: 1 });
+    component.openCase({ quantity: 5 });
 
-    expect(component.isLoading).toBeTruthy();
+    expect(component.isLoading).toBeTrue();
 
     const op = controller.expectOne((operation) => {
       expect(operation.query.definitions).toEqual(OPEN_BOX_MUTATION.definitions);
@@ -102,9 +115,40 @@ describe('OpenBoxModalComponent', () => {
           ]
         }
       }
-    })
+    });
 
     controller.verify();
+  });
+
+  it('should open the case with error', () => {
+    component.openCase({ quantity: 1 });
+
+    expect(component.isLoading).toBeTruthy();
+
+    const op = controller.expectOne((operation) => {
+      expect(operation.query.definitions).toEqual(OPEN_BOX_MUTATION.definitions);
+      return true;
+    });
+
+    op.graphqlErrors(
+      [{
+        message: "Error!",
+        locations: undefined,
+        path: undefined,
+        nodes: undefined,
+        source: undefined,
+        positions: undefined,
+        originalError: undefined,
+        extensions: [],
+        name: 'mockerrors',
+        stack: undefined
+      }]
+    );
+
+
+    controller.verify();
+
+    expect(component.boxOpenings.length).toEqual(0);
   });
 
 
@@ -117,7 +161,6 @@ describe('OpenBoxModalComponent', () => {
 
   it('should try again', () => {
     component.tryAgain();
-
     expect(component.boxOpenings.length).toEqual(0);
   });
 });

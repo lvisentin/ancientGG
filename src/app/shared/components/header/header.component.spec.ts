@@ -2,8 +2,10 @@ import { ApolloTestingController, ApolloTestingModule } from 'apollo-angular/tes
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { GET_USER } from '../../queries/user-queries';
 import { HeaderComponent } from './header.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { User } from '../../models/user.models';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -11,6 +13,22 @@ describe('HeaderComponent', () => {
   let authService: AuthService;
   let controller: ApolloTestingController;
 
+  const mockUser: User = {
+    id: 'mockid',
+    name: 'mockname',
+    avatar: 'mockavatar',
+    wallets: [
+      {
+        amount: 150,
+        currency: 'TKN',
+        id: 'mockwallet'
+      }
+    ],
+  }
+
+  beforeAll(() => {
+    window.onbeforeunload = () => 'Oh no!';
+  });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -25,16 +43,14 @@ describe('HeaderComponent', () => {
       .compileComponents();
   });
 
-  beforeAll(() => {
-    window.onbeforeunload = () => 'Oh no!';
-  });
-
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
 
     authService = TestBed.inject(AuthService);
     controller = TestBed.inject(ApolloTestingController);
+
+    component.user = mockUser;
 
     fixture.detectChanges();
   });
@@ -45,17 +61,160 @@ describe('HeaderComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
+    const op = controller.expectOne('currentUser');
+
+    op.flush({
+      data: {
+        currentUser: {
+          id: 'mockid',
+          name: 'mockname',
+          avatar: 'mockavatar',
+          wallets: [
+            {
+              amount: 150,
+              currency: 'TKN',
+              id: 'mockwallet'
+            }
+          ],
+        }
+      }
+    })
+
+    const walletOp = controller.expectOne('OnUpdateWallet');
+
+    walletOp.flush({
+      data: {
+        updateWallet: {
+          wallet: {
+            id: 'mockid',
+            amount: 150,
+            name: 'mockname',
+          }
+        }
+      }
+    })
+
   });
 
   it('should redirectToLogin', () => {
     let spyOnLogin = spyOn(authService, 'login');
     component.redirectToLogin();
+
+    const op = controller.expectOne('currentUser');
+
+    op.flush({
+      data: {
+        currentUser: {
+          id: 'mockid',
+          name: 'mockname',
+          avatar: 'mockavatar',
+          wallets: [
+            {
+              amount: 150,
+              currency: 'TKN',
+              id: 'mockwallet'
+            }
+          ],
+        }
+      }
+    })
+
+    const walletOp = controller.expectOne('OnUpdateWallet');
+
+    walletOp.flush({
+      data: {
+        updateWallet: {
+          wallet: {
+            id: 'mockid',
+            amount: 150,
+            name: 'mockname',
+          }
+        }
+      }
+    })
+
     expect(spyOnLogin).toHaveBeenCalled();
   });
 
   it('should get user info', () => {
-    spyOn(authService, 'getCurrentUserInformation').and.callThrough();
     component.getUserInfo();
-    expect(authService.getCurrentUserInformation).toHaveBeenCalledWith();
+
+    const op = controller.expectOne(GET_USER);
+
+    op.flush({
+      data: {
+        currentUser: {
+          id: 'mockid',
+          name: 'mockname',
+          avatar: 'mockavatar',
+          wallets: [
+            {
+              amount: 150,
+              currency: 'TKN',
+              id: 'mockwallet'
+            }
+          ],
+        }
+      }
+    })
+
+
+    const walletOp = controller.expectOne('OnUpdateWallet');
+
+    walletOp.flush({
+      data: {
+        updateWallet: {
+          wallet: {
+            id: 'mockid',
+            amount: 150,
+            name: 'mockname',
+          }
+        }
+      }
+    })
+
+    controller.verify();
+
+    expect(component.user).toBeTruthy();
+  });
+
+  it('should get subscribe to wallet changes', () => {
+    component.subscribeToWalletChanges();
+
+    const op = controller.expectOne(GET_USER);
+
+    op.flush({
+      data: {
+        currentUser: {
+          id: 'mockid',
+          name: 'mockname',
+          avatar: 'mockavatar',
+          wallets: [
+            {
+              amount: 150,
+              currency: 'TKN',
+              id: 'mockwallet'
+            }
+          ],
+        }
+      }
+    })
+
+    const walletOp = controller.expectOne('OnUpdateWallet');
+
+    walletOp.flush({
+      data: {
+        updateWallet: {
+          wallet: {
+            id: 'mockid',
+            amount: 150,
+            name: 'mockname',
+          }
+        }
+      }
+    })
+
+    controller.verify();
   });
 });
