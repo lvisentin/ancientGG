@@ -18,7 +18,7 @@ export class AuthService {
     window.location.href = "https://api-staging.csgoroll.com/auth/steam?redirectUri=http://localhost:4200";
   }
 
-  public getCurrentUserInformation(): Observable<ApolloQueryResult<User>> {
+  public getCurrentUserInformation(): Observable<any> {
     const getCurrenUserObservable = this.apollo.watchQuery<User>({ query: GET_USER })
       .valueChanges;
 

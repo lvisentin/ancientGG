@@ -29,13 +29,7 @@ export class HeaderComponent implements OnInit {
     this.authService.login();
   }
 
-  private getUserInfo(): void {
-    this.authService
-      .getCurrentUserInformation()
-      .subscribe(({ data }: any) => this.user = data.currentUser);
-  }
-
-  private subscribeToWalletChanges(): void {
+  public subscribeToWalletChanges(): void {
     this.walletQuery.subscribeToMore(
       {
         document: ON_UPDATE_WALLET,
@@ -44,5 +38,11 @@ export class HeaderComponent implements OnInit {
         }
       }
     )
+  }
+
+  public getUserInfo(): void {
+    this.authService
+      .getCurrentUserInformation()
+      .subscribe(({ data }: any) => this.user = data.currentUser);
   }
 }

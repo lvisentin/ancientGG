@@ -12,6 +12,7 @@ export class BoxCardComponent implements OnInit {
   @Input() box: Box;
   @Input() variant: 'view' | 'open' = 'view';
   @Output() customClick = new EventEmitter();
+  public hasCustomClick: boolean;
   public openingQt = [1, 2, 3, 4, 5];
   public selectedQt = 1;
   public boxData: Box;
@@ -22,6 +23,7 @@ export class BoxCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.boxData = this.box;
+    this.hasCustomClick = this.customClick.observers.length > 0;
   }
 
   public selectQt(qt: number) {
@@ -29,14 +31,14 @@ export class BoxCardComponent implements OnInit {
   }
 
   public handleOpenCaseClick() {
-    if (this.customClick.observers.length > 0) {
+    if (this.hasCustomClick) {
       this.customClick.emit({ quantity: this.selectedQt });
     } else {
       this.openModal();
     }
   }
 
-  private openModal(): void {
+  public openModal(): void {
     this.openBoxModalService.open({ data: { boxId: this.boxData?.id } });
   }
 
