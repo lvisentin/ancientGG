@@ -45,7 +45,7 @@ export class BoxCardComponent implements OnInit {
       data: {
         boxId: this.boxData?.id
       }
-    })
+    });
   }
 
 }

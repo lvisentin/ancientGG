@@ -17,7 +17,7 @@ describe('OpenBoxModalComponent', () => {
 
   const mockModalData = {
     boxId: 'mockId'
-  }
+  };
 
   const dialogMock = {
     close: () => { }

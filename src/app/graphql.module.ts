@@ -15,17 +15,17 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     options: {
       reconnect: true,
     }
-  })
+  });
 
   const link = split(({ query }) => {
     const data = getMainDefinition(query);
     return (data.kind === 'OperationDefinition' && data.operation === 'subscription');
-  }, ws, http)
+  }, ws, http);
 
   return {
     link: link,
     cache: new InMemoryCache(),
-  }
+  };
 }
 
 @NgModule({

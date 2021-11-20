@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.getUserInfo();
           }
         }
-      )
+      );
   }
 
   public getUserInfo(): void {

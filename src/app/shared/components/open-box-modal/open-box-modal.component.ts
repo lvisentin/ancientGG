@@ -16,7 +16,6 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./open-box-modal.component.scss']
 })
 export class OpenBoxModalComponent implements OnInit, OnDestroy {
-
   public isOpened: boolean = false;
   public boxData: Box | null = null;
   public isLoading: boolean = false;
@@ -60,7 +59,7 @@ export class OpenBoxModalComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     const user = this.authService.getCurrentUserInformation();
     if (!user) {
-      return
+      return;
     }
 
     this.apollo.mutate({
@@ -81,12 +80,11 @@ export class OpenBoxModalComponent implements OnInit, OnDestroy {
         this.matSnackbar.open(err.message, 'OK', {
           duration: 3000,
         });
-      })
+      });
   }
 
   public getBoxData(): void {
-    console.log(this.dialogData.boxId)
-    if (!this.dialogData.boxId) { return };
+    if (!this.dialogData.boxId) { return; };
 
     this.isLoading = true;
     this.apollo.watchQuery(
@@ -102,8 +100,6 @@ export class OpenBoxModalComponent implements OnInit, OnDestroy {
       .subscribe(({ data }: { data: any }) => {
         this.boxData = data.box;
         this.isLoading = false;
-        console.log(this.boxData)
-      })
-
+      });
   }
 }

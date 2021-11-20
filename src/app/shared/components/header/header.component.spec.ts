@@ -24,7 +24,7 @@ describe('HeaderComponent', () => {
         id: 'mockwallet'
       }
     ],
-  }
+  };
 
   beforeAll(() => {
     window.onbeforeunload = () => 'Oh no!';
@@ -79,7 +79,7 @@ describe('HeaderComponent', () => {
           ],
         }
       }
-    })
+    });
 
     const walletOp = controller.expectOne('OnUpdateWallet');
 
@@ -93,7 +93,7 @@ describe('HeaderComponent', () => {
           }
         }
       }
-    })
+    });
 
   });
 
@@ -118,7 +118,7 @@ describe('HeaderComponent', () => {
           ],
         }
       }
-    })
+    });
 
     const walletOp = controller.expectOne('OnUpdateWallet');
 
@@ -132,7 +132,7 @@ describe('HeaderComponent', () => {
           }
         }
       }
-    })
+    });
 
     expect(spyOnLogin).toHaveBeenCalled();
   });
@@ -157,7 +157,7 @@ describe('HeaderComponent', () => {
           ],
         }
       }
-    })
+    });
 
 
     const walletOp = controller.expectOne('OnUpdateWallet');
@@ -172,7 +172,7 @@ describe('HeaderComponent', () => {
           }
         }
       }
-    })
+    });
 
     controller.verify();
 
@@ -199,7 +199,7 @@ describe('HeaderComponent', () => {
           ],
         }
       }
-    })
+    });
 
     const walletOp = controller.expectOne('OnUpdateWallet');
 
@@ -213,7 +213,7 @@ describe('HeaderComponent', () => {
           }
         }
       }
-    })
+    });
 
     controller.verify();
   });

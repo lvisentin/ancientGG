@@ -16,7 +16,7 @@ describe('AuthService', () => {
 
   beforeAll(() => {
     window.onbeforeunload = () => 'Oh no';
-  })
+  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();

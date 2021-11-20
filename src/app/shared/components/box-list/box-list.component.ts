@@ -37,10 +37,9 @@ export class BoxListComponent implements OnInit, OnDestroy {
       .valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ data }: { data: any }) => {
-        // this.boxes = [data.boxes.edges[0], data.boxes.edges[1], data.boxes.edges[2]];
         this.boxes = data.boxes.edges;
         this.isLoading = false;
-      })
+      });
   }
 
 }

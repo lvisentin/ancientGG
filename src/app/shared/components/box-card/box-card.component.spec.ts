@@ -70,13 +70,12 @@ describe('BoxCardComponent', () => {
       iconUrl: 'mockiconUrl',
       id: 'mockId',
       name: 'mockname',
-    }
+    };
 
     component.boxData = boxData;
     spyOn(matDialog, 'open');
     component.openModal();
     expect(component.boxData.id).toEqual(boxData.id);
     expect(matDialog.open).toHaveBeenCalled();
-  })
-
+  });
 });
