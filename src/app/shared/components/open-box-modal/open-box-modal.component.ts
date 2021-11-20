@@ -1,7 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Subject, Subscription } from 'rxjs';
-import { takeUntil, takeWhile } from 'rxjs/operators';
+import { finalize, takeUntil, takeWhile } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-modal.service';
 import { Box, BoxOpening, BoxOpeningResponse, ItemVariant } from '../../models/boxes.model';
@@ -20,12 +21,13 @@ export class OpenBoxModalComponent implements OnInit {
   public isLoading: boolean = false;
   public isMobile: boolean = window.innerWidth > 569 ? false : true;
   public boxOpenings: BoxOpening[] = [];
+
   private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly openBoxModalService: OpenBoxModalService,
     private readonly apollo: Apollo,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -72,13 +74,17 @@ export class OpenBoxModalComponent implements OnInit {
           amount: $event.quantity
         }
       }
-    }).subscribe(({ data }: any) => {
-      this.boxOpenings = data.openBox.boxOpenings;
-      this.isLoading = false;
     })
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe(({ data }: any) => {
+        this.boxOpenings = data.openBox.boxOpenings;
+        this.isLoading = false;
+      }, (err: HttpErrorResponse) => {
+
+      })
   }
 
-  private getBoxData(): void {
+  public getBoxData(): void {
     this.isLoading = true;
     this.subscriptions.push(
       this.apollo.watchQuery(

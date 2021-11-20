@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { BoxListModule } from 'src/app/shared/components/box-list/box-list.module';
+import { HeaderModule } from 'src/app/shared/components/header/header.module';
+import { OpenBoxModalModule } from 'src/app/shared/components/open-box-modal/open-box-modal.module';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    BoxListModule,
+    HeaderModule,
+    OpenBoxModalModule,
   ]
 })
 export class HomeModule { }

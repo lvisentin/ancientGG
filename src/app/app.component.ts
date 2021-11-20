@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { GET_USER } from './shared/queries/user-queries';
 
 @Component({
-  selector: 'app-root',
+  selector: 'agg-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'ancientGG';
 
   constructor(

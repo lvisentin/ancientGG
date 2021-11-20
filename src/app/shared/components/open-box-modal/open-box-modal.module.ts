@@ -14,7 +14,7 @@ import { ItemCardModule } from '../item-card/item-card.module';
   imports: [
     CommonModule,
     BoxCardModule,
-    ItemCardModule
+    ItemCardModule,
   ]
 })
 export class OpenBoxModalModule { }
