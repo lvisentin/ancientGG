@@ -1,6 +1,6 @@
 # 🎮 AncientGG Frontend Test
 
-<img src="https://raw.githubusercontent.com/lvisentin/ancientGG/readme_imgs/home.png">
+<img src="https://github.com/lvisentin/ancientGG/blob/main/readme_imgs/home.png">
 
 This project was made for the Ancient GG frontend test.
 
@@ -10,7 +10,7 @@ The mainly focus was show the use of the graphQL and apollo.
 
 I also did the unit tests, here is the coverage:
 
-<img src="https://raw.githubusercontent.com/lvisentin/ancientGG/readme_imgs/tests.png">
+<img src="https://github.com/lvisentin/ancientGG/blob/main/readme_imgs/tests.png">
 
 ## Development server
 
