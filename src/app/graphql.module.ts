@@ -3,9 +3,10 @@ import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { NgModule } from '@angular/core';
 import { WebSocketLink } from '@apollo/client/link/ws';
+import { environment } from 'src/environments/environment';
 import { getMainDefinition } from '@apollo/client/utilities';
 
-const uri = '://api-staging.csgoroll.com/graphql';
+const uri = environment.api_url;
 
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const http = httpLink.create({ uri: `https${uri}`, withCredentials: true });
