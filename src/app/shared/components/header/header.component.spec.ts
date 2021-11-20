@@ -81,20 +81,7 @@ describe('HeaderComponent', () => {
       }
     });
 
-    const walletOp = controller.expectOne('OnUpdateWallet');
-
-    walletOp.flush({
-      data: {
-        updateWallet: {
-          wallet: {
-            id: 'mockid',
-            amount: 150,
-            name: 'mockname',
-          }
-        }
-      }
-    });
-
+    controller.verify();
   });
 
   it('should redirectToLogin', () => {
@@ -120,20 +107,6 @@ describe('HeaderComponent', () => {
       }
     });
 
-    const walletOp = controller.expectOne('OnUpdateWallet');
-
-    walletOp.flush({
-      data: {
-        updateWallet: {
-          wallet: {
-            id: 'mockid',
-            amount: 150,
-            name: 'mockname',
-          }
-        }
-      }
-    });
-
     expect(spyOnLogin).toHaveBeenCalled();
   });
 
@@ -155,21 +128,6 @@ describe('HeaderComponent', () => {
               id: 'mockwallet'
             }
           ],
-        }
-      }
-    });
-
-
-    const walletOp = controller.expectOne('OnUpdateWallet');
-
-    walletOp.flush({
-      data: {
-        updateWallet: {
-          wallet: {
-            id: 'mockid',
-            amount: 150,
-            name: 'mockname',
-          }
         }
       }
     });

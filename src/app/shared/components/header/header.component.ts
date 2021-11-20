@@ -24,10 +24,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getUserInfo();
-
-    if (this.user) {
-      this.subscribeToWalletChanges();
-    }
   }
 
   ngOnDestroy(): void {
@@ -58,6 +54,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getCurrentUserInformation()
       .pipe(takeUntil(this.destroy$))
       .pipe(first())
-      .subscribe(({ data }: any) => this.user = data.currentUser);
+      .subscribe(({ data }: any) => {
+        this.user = data.currentUser;
+        this.subscribeToWalletChanges();
+      });
   }
 }
