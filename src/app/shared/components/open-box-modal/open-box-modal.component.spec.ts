@@ -12,7 +12,7 @@ import { OpenBoxModalService } from 'src/app/services/open-box-modal/open-box-mo
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 
-fdescribe('OpenBoxModalComponent', () => {
+describe('OpenBoxModalComponent', () => {
   let component: OpenBoxModalComponent;
   let fixture: ComponentFixture<OpenBoxModalComponent>;
   let controller: ApolloTestingController;
